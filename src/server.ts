@@ -4,11 +4,16 @@ import depthLimit from 'graphql-depth-limit';
 import { createServer } from 'http';
 import compression from 'compression';
 import cors from 'cors';
-import schema from './schema/index.graphql';
+import 'graphql-import-node';
+
+import * as schema from './schema/index.graphql';
 
 const app = express();
+
+const documentSchema = schema as any;
+
 const server = new ApolloServer({
-  schema,
+  schema: documentSchema,
   validationRules: [depthLimit(7)],
 });
 
