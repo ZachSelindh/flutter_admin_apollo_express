@@ -1,25 +1,33 @@
+import { ApolloServer } from '@apollo/server';
+import { expressMiddleware } from '@apollo/server/express4';
+import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
 import express from 'express';
-import { ApolloServer } from 'apollo-server-express';
-import depthLimit from 'graphql-depth-limit';
-import { createServer } from 'http';
-import compression from 'compression';
+import http from 'http';
 import cors from 'cors';
-import schema from './schema';
+import bodyParser from 'body-parser';
+import { typeDefs } from './schema';
+import resolverMap from './resolverMap';
+
+interface MyContext {
+  token?: String;
+}
 
 const app = express();
-
-const server = new ApolloServer({
-  schema,
-  validationRules: [depthLimit(7)],
+const httpServer = http.createServer(app);
+const server = new ApolloServer<MyContext>({
+  typeDefs,
+  resolvers: resolverMap,
+  plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
 });
+await server.start();
+app.use(
+  '/graphql',
+  cors<cors.CorsRequest>(),
+  bodyParser.json(),
+  expressMiddleware(server, {
+    context: async ({ req }) => ({ token: req.headers.token }),
+  }),
+);
 
-app.use('*', cors());
-app.use(compression());
-
-server.applyMiddleware({ app, path: '/graphql' });
-
-const httpServer = createServer(app);
-
-httpServer.listen(
-  { port: 3000 },
-  (): void => console.log(`\n🚀      GraphQL is now running on http://localhost:3000/graphql`));
+await new Promise<void>((resolve) => httpServer.listen({ port: 4000 }, resolve));
+console.log(`🚀 Server ready at http://localhost:4000/graphql`);
