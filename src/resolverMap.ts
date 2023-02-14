@@ -1,7 +1,7 @@
 const resolverMap = {
   Query: {
     helloWorld(_: void, args: void): string {
-  return `👋 Hello world! 👋`;
+      return `👋 Hello world! 👋`;
     },
   },
 };

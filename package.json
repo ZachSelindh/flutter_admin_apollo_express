@@ -4,10 +4,8 @@
   "description": "Apollo Express server for Flutter Admin test",
   "main": "index.mjs",
   "scripts": {
-    "dev": "node index.mjs",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "npm run build:dev",
-    "build:dev": "nodemon 'src/server.ts' --exec 'ts-node' src/server.ts -e ts,graphql"
+    "dev": "npm run start:dev",
+    "start:dev": "npx tsc && node dist/server.js"
   },
   "repository": {
     "type": "git",
