@@ -15,7 +15,7 @@ interface MyContext {
 
 const app = express();
 
-dbConnection.then(() => console.log("Connected to MongoDB"));
+dbConnection.then(() => console.log("Connected to Mongoose"));
 
 const httpServer = http.createServer(app);
 
