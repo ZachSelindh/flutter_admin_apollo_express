@@ -11,7 +11,7 @@ const resolverMap = {
         let result = await User.find({});
         return result;
       } catch (err) {
-        console.log('Error:', err);
+        console.log('Error at get Users:', err);
         throw err;
       }
     },
@@ -26,6 +26,18 @@ const resolverMap = {
           });
           let result = await user.save();
           return result;
+      } catch (err) {
+        console.log('Error at createUser:', err);
+        throw err;
+      }
+    },
+    updateUser: async (_, { _id, ...rest }) => {
+      try {
+        let user = await User.findOneAndUpdate({ _id: _id }, { _id, ...rest }, {
+          new: true
+        });
+          
+          return user;
       } catch (err) {
         console.log('Error:', err);
         throw err;
