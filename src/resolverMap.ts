@@ -39,7 +39,17 @@ const resolverMap = {
           
           return user;
       } catch (err) {
-        console.log('Error:', err);
+        console.log('Error at updateUser:', err);
+        throw err;
+      }
+    },
+    deleteUser: async (_, { _id }) => {
+      try {
+        let deletedUser = await User.deleteOne({ _id });
+          
+          return deletedUser;
+      } catch (err) {
+        console.log('Error at deleteUser:', err);
         throw err;
       }
     },
