@@ -7,6 +7,7 @@ export const typeDefs = `#graphql
 
   type Query {
     helloWorld: String!
+    user: User!
     users: [User]!
   }
 

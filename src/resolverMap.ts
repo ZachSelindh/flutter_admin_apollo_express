@@ -6,10 +6,19 @@ const resolverMap = {
     helloWorld(_: void, args: void): string {
       return `👋 Hello world! 👋`;
     },
+    user: async (_, { _id }) => {
+      try {
+        let user = await User.findById(_id);
+        return user;
+      } catch (err) {
+        console.log('Error at get User:', err);
+        throw err;
+      }
+    },
     users: async () => {
       try {
-        let result = await User.find({});
-        return result;
+        let users = await User.find({});
+        return users;
       } catch (err) {
         console.log('Error at get Users:', err);
         throw err;
