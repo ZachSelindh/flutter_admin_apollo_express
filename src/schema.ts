@@ -11,6 +11,7 @@ export const typeDefs = `#graphql
     title: String!
     content: String!
     authorID: ID!
+    author: User!
   }
 
   type Query {
