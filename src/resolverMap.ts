@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import User from './db/models/user';
+import Post from './db/models/post';
 
 const resolverMap = {
   Query: {
@@ -24,6 +25,15 @@ const resolverMap = {
         throw err;
       }
     },
+    getPostsForUser: async (_, { userID }) => {
+      try {
+        let posts = await Post.find({ authorID: userID });
+        return posts;
+      } catch (err) {
+        console.log('Error at get Posts:', err);
+        throw err;
+      }
+    },
   },
   Mutation: {
     createUser: async (_, { name, email }) => {
@@ -34,10 +44,9 @@ const resolverMap = {
           email: email,
           });
           let result = await user.save();
-          return result;
+          return { code: "200", success: true, message: `Successfully created user ID ${result._id}`, user: result };
       } catch (err) {
-        console.log('Error at createUser:', err);
-        throw err;
+        return { code: "400", success: false, message: `Error at user create: ${err}` };
       }
     },
     updateUser: async (_, { _id, ...rest }) => {
@@ -45,21 +54,29 @@ const resolverMap = {
         let user = await User.findOneAndUpdate({ _id: _id }, { _id, ...rest }, {
           new: true
         });
-          
-          return user;
+
+        console.log('user', user);
+
+        return { code: "200", success: true, message: `Successfully updated user ID ${user._id}`, user };
       } catch (err) {
-        console.log('Error at updateUser:', err);
-        throw err;
+        return { code: "400", success: false, message: `Error at user update: ${err}` };
       }
     },
     deleteUser: async (_, { _id }) => {
       try {
         let deletedUser = await User.deleteOne({ _id });
-          
-          return deletedUser;
+
+        if (deletedUser?.deletedCount > 0) {
+          return { code: "200", success: true, message: `Successfully deleted user ID ${_id}` };
+        } else if (deletedUser?.acknowledged) {
+          return { code: "404", success: false, message: `No user with id ${_id} found` };
+        }
+
+        return { code: "404", success: false, message: `Unknown error at user delete` };
+
+
       } catch (err) {
-        console.log('Error at deleteUser:', err);
-        throw err;
+        return { code: "400", success: false, message: `Error at user delete: ${err}` };
       }
     },
   }
