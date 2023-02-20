@@ -7,8 +7,8 @@ export const typeDefs = `#graphql
 
   type Query {
     helloWorld: String!
-    user: User!
-    users: [User]!
+    getUser(_id: ID!): User
+    getUsers: [User]!
   }
 
   type Mutation {

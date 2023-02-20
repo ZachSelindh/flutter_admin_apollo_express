@@ -6,7 +6,7 @@ const resolverMap = {
     helloWorld(_: void, args: void): string {
       return `👋 Hello world! 👋`;
     },
-    user: async (_, { _id }) => {
+    getUser: async (_, { _id }) => {
       try {
         let user = await User.findById(_id);
         return user;
@@ -15,7 +15,7 @@ const resolverMap = {
         throw err;
       }
     },
-    users: async () => {
+    getUsers: async () => {
       try {
         let users = await User.find({});
         return users;
