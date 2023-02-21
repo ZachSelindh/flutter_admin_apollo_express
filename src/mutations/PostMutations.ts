@@ -17,7 +17,6 @@ class PostMutations {
           let newPost = await post.save();
     
           if (newPost) {
-    
             if (mongooseUserID) {
               const currentUser = await User.findById(userID);
     
@@ -43,4 +42,3 @@ class PostMutations {
 
 
 export default PostMutations;
- 
