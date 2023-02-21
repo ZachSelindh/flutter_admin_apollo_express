@@ -17,7 +17,7 @@ const resolverMap = {
     updateUser: UserMutations.updateUserMutation,
     deleteUser: UserMutations.deleteUserMutation,
     createPost: PostMutations.createPostMutation,
-  }
+  },
 };
 
 export default resolverMap;
