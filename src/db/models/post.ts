@@ -1,4 +1,5 @@
 import * as mongoose from 'mongoose';
+import User from './user';
 
 const { Schema } = mongoose;
 
@@ -6,9 +7,9 @@ const PostSchema = new Schema({
     _id: mongoose.Schema.Types.ObjectId,
     title: { type: String },
     content: { type: String },
-    authorID: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+    author: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
     }
   });
 

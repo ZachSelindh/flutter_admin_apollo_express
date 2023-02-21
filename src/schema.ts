@@ -10,7 +10,6 @@ export const typeDefs = `#graphql
     _id: ID!
     title: String!
     content: String!
-    authorID: ID!
     author: User!
   }
 
@@ -45,6 +44,6 @@ export const typeDefs = `#graphql
     createUser(name: String!, email: String!): userMutationResponse!
     updateUser(_id: ID!, name: String!, email: String!): userMutationResponse!
     deleteUser(_id: ID!): userMutationResponse!
-    createPost(title: String!, content: String! authorID: ID!): postMutationResponse!
+    createPost(title: String!, content: String! userID: ID!): postMutationResponse!
   }
 `;
