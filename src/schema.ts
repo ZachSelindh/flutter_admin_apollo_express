@@ -29,16 +29,10 @@ export const typeDefs = `#graphql
   }
 
   type userMutationResponse implements MutationResponse {
-    code: String!
-    success: Boolean!
-    message: String!
     user: User
   }
 
   type postMutationResponse implements MutationResponse {
-    code: String!
-    success: Boolean!
-    message: String!
     post: Post
   }
 
