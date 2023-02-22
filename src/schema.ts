@@ -17,6 +17,8 @@ export const typeDefs = `#graphql
     helloWorld: String!
     getUser(_id: ID!): User
     getUsers: [User!]
+    getPost(_id: ID!): Post
+    getPosts: [Post!]
     getPostsForUser(userID: ID!): [Post]
   }
 

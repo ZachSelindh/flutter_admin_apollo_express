@@ -10,6 +10,8 @@ const resolverMap = {
     },
     getUser: UserQueries.getUserQuery,
     getUsers: UserQueries.getUsersQuery,
+    getPost: PostQueries.getPostQuery,
+    getPosts: PostQueries.getPostsQuery,
     getPostsForUser: PostQueries.getPostsForUserQuery,
   },
   Mutation: {
