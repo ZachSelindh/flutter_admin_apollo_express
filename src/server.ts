@@ -42,7 +42,9 @@ app.use(
   })
 );
 
-// eslint-disable-next-line no-promise-executor-return
-await new Promise<void>(resolve => httpServer.listen({ port: 4000 }, resolve));
+const PORT = process.env.PORT || 4000;
 
-console.log(`🚀 Server ready at http://localhost:4000/graphql`);
+// eslint-disable-next-line no-promise-executor-return
+await new Promise<void>(resolve => httpServer.listen({ port: PORT }, resolve));
+
+console.log(`🚀 Server ready at Port ${PORT}`);
