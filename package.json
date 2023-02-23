@@ -9,7 +9,7 @@
     "lint:fix": "eslint --fix",
     "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
     "compile": "tsc",
-    "start": "node ./dist/server.js",
+    "start": "node --experimental-specifier-resolution=node ./dist/server.js",
     "dev": "npm run compile && node --experimental-specifier-resolution=node ./dist/server.js"
   },
   "repository": {
