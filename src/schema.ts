@@ -24,6 +24,7 @@ export const typeDefs = `#graphql
   }
 
   type Query {
+    login(username:String!, password:String!): String
     helloWorld: String!
     getUser(_id: ID!): User
     getUsers: [User!]
