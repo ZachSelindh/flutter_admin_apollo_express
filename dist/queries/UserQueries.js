@@ -1,5 +1,5 @@
 var _a;
-import User from '../db/models/user';
+import User from '../db/models/User';
 class UserQueries {
 }
 _a = UserQueries;

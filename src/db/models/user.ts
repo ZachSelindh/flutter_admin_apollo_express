@@ -9,6 +9,7 @@ const UserSchema = new Schema({
   password: { type: String },
   name: { type: String },
   email: { type: String },
+  role: { type: String },
   posts: [
     {
       type: mongoose.Types.ObjectId,

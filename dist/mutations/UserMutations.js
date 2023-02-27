@@ -1,15 +1,18 @@
 var _a;
 import mongoose from 'mongoose';
-import User from '../db/models/user';
+import User from '../db/models/User';
 class UserMutations {
 }
 _a = UserMutations;
-UserMutations.createUserMutation = async (_, { name, email }) => {
+UserMutations.createUserMutation = async (_, { name, email, username, password, role }) => {
     try {
         const user = new User({
             _id: new mongoose.Types.ObjectId(),
             name,
+            username,
             email,
+            password,
+            role,
         });
         const result = await user.save();
         return {

@@ -1,7 +1,7 @@
 var _a;
 import mongoose from 'mongoose';
-import Post from '../db/models/post';
-import User from '../db/models/user';
+import Post from '../db/models/Post';
+import User from '../db/models/User';
 class PostMutations {
 }
 _a = PostMutations;

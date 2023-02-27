@@ -54,7 +54,7 @@ export const typeDefs = `#graphql
   }
 
   type Mutation {
-    createUser(name: String!, email: String!): userMutationResponse!
+    createUser(name: String!, username: String!, email: String!, password: String! role: String): userMutationResponse!
     updateUser(_id: ID!, name: String!, email: String!): userMutationResponse!
     deleteUser(_id: ID!): userMutationResponse!
     createPost(title: String!, content: String! userID: ID!): postMutationResponse!

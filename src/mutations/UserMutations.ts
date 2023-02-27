@@ -12,6 +12,7 @@ class UserMutations {
         name,
         username,
         email,
+        password,
         role,
       });
       const result = await user.save();
