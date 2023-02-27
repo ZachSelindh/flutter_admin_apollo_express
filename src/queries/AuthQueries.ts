@@ -6,7 +6,7 @@ class AuthQueries {
   static loginQuery = async (_, { username, password }) => {
     try {
       const user = await User.findOne({ username });
-      const isCorrectPassword = bcrypt.compare(password, user.password);
+      const isCorrectPassword = await bcrypt.compare(password, user.password);
       if (isCorrectPassword) {
         const token = jwt.sign(
           {
@@ -16,7 +16,6 @@ class AuthQueries {
           },
           process.env.JWT_SECRET
         );
-        console.log('HIT', isCorrectPassword);
         return token;
       }
       throw new Error('Failed authentication');
