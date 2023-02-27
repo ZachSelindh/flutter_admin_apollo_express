@@ -1,8 +1,18 @@
 export const typeDefs = `#graphql
+  directive @auth(
+    requires: Role = ADMIN,
+  ) on OBJECT | FIELD_DEFINITION
+
+  enum Role {
+    ADMIN
+    USER
+  }
+
   type User {
     _id: ID!
     name: String!
     email: String!
+    role: String!
     posts: [Post]
   }
 
@@ -14,9 +24,10 @@ export const typeDefs = `#graphql
   }
 
   type Query {
+    login(username:String!, password:String!): String
     helloWorld: String!
-    getUser(_id: ID!): User
-    getUsers: [User!]
+    getUser(id: ID!): User! @auth(requires: ADMIN)
+    getUsers: [User]! @auth(requires: ADMIN)
     getPost(_id: ID!): Post
     getPosts: [Post!]
     getPostsForUser(userID: ID!): [Post]
