@@ -11,6 +11,19 @@ class UserQueries {
     }
   };
 
+  static getUserByTokenQuery = async token => {
+    console.log('token', token);
+    // TODO: Get user session by token?
+    // try {
+    //   const user = await User.findById(_id);
+    //   return user;
+    // } catch (err) {
+    //   console.log('Error at get User:', err);
+    //   throw err;
+    // }
+    return null;
+  };
+
   static getUsersQuery = async () => {
     try {
       const users = await User.find({});

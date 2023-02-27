@@ -1,11 +1,13 @@
 import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
+import { GraphQLError } from 'graphql';
 import express from 'express';
 import http from 'http';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import { typeDefs } from './schema';
+import UserQueries from './queries/UserQueries';
 import resolverMap from './resolverMap';
 import { dbConnection } from './db';
 const app = express();
@@ -23,7 +25,18 @@ const corsOptions = {
     optionSuccessStatus: 200,
 };
 app.use('/graphql', cors(corsOptions), bodyParser.json(), expressMiddleware(server, {
-    context: async ({ req }) => ({ token: req.headers.token }),
+    context: async ({ req }) => {
+        const token = req.headers.token || '';
+        const user = await UserQueries.getUserByTokenQuery(token);
+        if (!user)
+            throw new GraphQLError('User is not authenticated', {
+                extensions: {
+                    code: 'UNAUTHENTICATED',
+                    http: { status: 401 },
+                },
+            });
+        return { user };
+    },
 }));
 const PORT = process.env.PORT || 4000;
 // eslint-disable-next-line no-promise-executor-return
