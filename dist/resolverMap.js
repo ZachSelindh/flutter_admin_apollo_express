@@ -1,14 +1,25 @@
+import { GraphQLScalarType } from 'graphql';
 import UserMutations from './mutations/UserMutations';
 import PostMutations from './mutations/PostMutations';
+import AuthMutations from './mutations/AuthMutations';
 import PostQueries from './queries/PostQueries';
 import UserQueries from './queries/UserQueries';
-import AuthQueries from './queries/AuthQueries';
+const dateScalar = new GraphQLScalarType({
+    name: 'Date',
+    parseValue(value) {
+        if ('string' === typeof value)
+            return new Date(value);
+    },
+    serialize(value) {
+        if (value instanceof Date)
+            return value.toISOString();
+    },
+});
 const resolverMap = {
     Query: {
         helloWorld(_, args) {
             return `👋 Hello world! 👋`;
         },
-        login: AuthQueries.loginQuery,
         getUser: UserQueries.getUserQuery,
         getUsers: UserQueries.getUsersQuery,
         getPost: PostQueries.getPostQuery,
@@ -16,10 +27,12 @@ const resolverMap = {
         getPostsForUser: PostQueries.getPostsForUserQuery,
     },
     Mutation: {
+        login: AuthMutations.loginMutation,
         createUser: UserMutations.createUserMutation,
         updateUser: UserMutations.updateUserMutation,
         deleteUser: UserMutations.deleteUserMutation,
         createPost: PostMutations.createPostMutation,
     },
+    Date: dateScalar,
 };
 export default resolverMap;

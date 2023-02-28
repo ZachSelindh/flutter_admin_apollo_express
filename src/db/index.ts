@@ -9,5 +9,6 @@ const URL =
   `${process.env.MONGO_DB_FLUTTER_DB_NAME}?retryWrites=true&w=majority`;
 
 export const dbConnection = mongoose
+  .set('strictQuery', true)
   .connect(URL)
   .catch(error => console.log('Mongoose connection error:', error));
