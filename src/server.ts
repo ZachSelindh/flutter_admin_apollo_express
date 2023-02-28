@@ -12,7 +12,8 @@ import resolverMap from './resolverMap';
 import { dbConnection } from './db';
 
 interface MyContext {
-  user: {
+  token?: String;
+  user?: {
     _id: String;
     name: String;
     email: String;
@@ -47,19 +48,14 @@ app.use(
   bodyParser.json(),
   expressMiddleware(server, {
     context: async ({ req }) => {
+      if ('IntrospectionQuery' === req?.body?.operationName)
+        return req.headers.token;
+
       const token = req.headers.token || '';
 
       const user = await UserQueries.getUserByTokenQuery(token);
 
-      if (!user)
-        throw new GraphQLError('User is not authenticated', {
-          extensions: {
-            code: 'UNAUTHENTICATED',
-            http: { status: 401 },
-          },
-        });
-
-      return { user };
+      if (user) return { user };
     },
   })
 );

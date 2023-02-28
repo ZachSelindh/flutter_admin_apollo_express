@@ -26,6 +26,11 @@ const corsOptions = {
 };
 app.use('/graphql', cors(corsOptions), bodyParser.json(), expressMiddleware(server, {
     context: async ({ req }) => {
+        if ('IntrospectionQuery' === req?.body?.operationName) {
+            console.log('HIT');
+            return req.headers.token;
+        }
+        console.log('req', req);
         const token = req.headers.token || '';
         const user = await UserQueries.getUserByTokenQuery(token);
         if (!user)
