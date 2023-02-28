@@ -62,6 +62,16 @@ class AuthMutations {
       };
     }
   };
+
+  static logoutMutation = async (_, { _id }) => {
+    await this.clearUserSessions(_id);
+
+    return {
+      code: '200',
+      success: true,
+      message: `Successfully logged out user ID ${_id}`,
+    };
+  };
 }
 
 export default AuthMutations;

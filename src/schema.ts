@@ -72,6 +72,7 @@ export const typeDefs = `#graphql
   
   type Mutation {
     login(username:String!, password:String!): loginMutationResponse!
+    logout(_id: ID!): MutationResponse!
     createUser(name: String!, username: String!, email: String!, password: String! role: String): userMutationResponse!
     updateUser(_id: ID!, name: String!, email: String!): userMutationResponse!
     deleteUser(_id: ID!): userMutationResponse!

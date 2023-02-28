@@ -28,6 +28,7 @@ const resolverMap = {
     },
     Mutation: {
         login: AuthMutations.loginMutation,
+        logout: AuthMutations.logoutMutation,
         createUser: UserMutations.createUserMutation,
         updateUser: UserMutations.updateUserMutation,
         deleteUser: UserMutations.deleteUserMutation,

@@ -57,4 +57,12 @@ AuthMutations.loginMutation = async (_, { username, password }) => {
         };
     }
 };
+AuthMutations.logoutMutation = async (_, { _id }) => {
+    await _a.clearUserSessions(_id);
+    return {
+        code: '200',
+        success: true,
+        message: `Successfully logged out user ID ${_id}`,
+    };
+};
 export default AuthMutations;
