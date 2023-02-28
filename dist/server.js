@@ -28,9 +28,11 @@ app.use('/graphql', cors(corsOptions), bodyParser.json(), expressMiddleware(serv
         if ('IntrospectionQuery' === req?.body?.operationName)
             return req.headers.token;
         const token = req.headers.token || '';
-        const user = await UserQueries.getUserByTokenQuery(token);
-        if (user)
-            return { user };
+        if (token) {
+            const user = await UserQueries.getUserByTokenQuery(token);
+            if (user)
+                return { user };
+        }
     },
 }));
 const PORT = process.env.PORT || 4000;

@@ -1,7 +1,6 @@
 import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
-import { GraphQLError } from 'graphql';
 import express from 'express';
 import http from 'http';
 import cors from 'cors';
@@ -53,9 +52,11 @@ app.use(
 
       const token = req.headers.token || '';
 
-      const user = await UserQueries.getUserByTokenQuery(token);
+      if (token) {
+        const user = await UserQueries.getUserByTokenQuery(token);
 
-      if (user) return { user };
+        if (user) return { user };
+      }
     },
   })
 );
