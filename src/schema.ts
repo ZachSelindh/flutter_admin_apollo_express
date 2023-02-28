@@ -14,13 +14,13 @@ export const typeDefs = `#graphql
     _id: ID!
     name: String!
     email: String!
-    role: String!
+    role: String
     posts: [Post]
   }
 
   type Session {
     _id: ID!
-    username: String!
+    user: User!
     token: String!
     started_at: Date!
     expires_at: Date!

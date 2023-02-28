@@ -7,6 +7,9 @@ import Session from '../db/models/Session';
 class AuthMutations {
 }
 _a = AuthMutations;
+AuthMutations.clearSessions = async (userID) => {
+    await Session.deleteMany({ user: userID });
+};
 AuthMutations.loginMutation = async (_, { username, password }) => {
     try {
         const user = await User.findOne({ username });
@@ -23,9 +26,10 @@ AuthMutations.loginMutation = async (_, { username, password }) => {
                 password: user.password,
                 role: user.role || 'USER',
             }, process.env.JWT_SECRET);
+            await _a.clearSessions(user._id);
             const session = new Session({
                 _id: new mongoose.Types.ObjectId(),
-                username,
+                user,
                 token,
                 started_at: new Date(),
                 expires_at: new Date().setHours(new Date().getHours() + 1),

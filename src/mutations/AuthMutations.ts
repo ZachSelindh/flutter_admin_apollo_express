@@ -5,6 +5,10 @@ import User from '../db/models/User';
 import Session from '../db/models/Session';
 
 class AuthMutations {
+  static clearSessions = async userID => {
+    await Session.deleteMany({ user: userID });
+  };
+
   static loginMutation = async (_, { username, password }) => {
     try {
       const user = await User.findOne({ username });
@@ -25,9 +29,11 @@ class AuthMutations {
           process.env.JWT_SECRET
         );
 
+        await this.clearSessions(user._id);
+
         const session = new Session({
           _id: new mongoose.Types.ObjectId(),
-          username,
+          user,
           token,
           started_at: new Date(),
           expires_at: new Date().setHours(new Date().getHours() + 1),
