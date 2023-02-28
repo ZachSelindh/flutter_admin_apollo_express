@@ -1,6 +1,6 @@
 var _a;
 import mongoose from 'mongoose';
-import User from '../db/models/User';
+import User from '../db/models/UserModel';
 class UserMutations {
 }
 _a = UserMutations;

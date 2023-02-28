@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import User from '../db/models/User';
-import Session from '../db/models/Session';
+import User from '../db/models/UserModel';
+import Session from '../db/models/SessionModel';
 
 class AuthMutations {
   static clearUserSessions = async userID => {

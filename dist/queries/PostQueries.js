@@ -1,5 +1,5 @@
 var _a;
-import Post from '../db/models/Post';
+import Post from '../db/models/PostModel';
 class PostQueries {
 }
 _a = PostQueries;

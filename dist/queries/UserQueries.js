@@ -1,6 +1,6 @@
 var _a;
-import User from '../db/models/User';
-import Session from '../db/models/Session';
+import User from '../db/models/UserModel';
+import Session from '../db/models/SessionModel';
 class UserQueries {
 }
 _a = UserQueries;

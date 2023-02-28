@@ -1,4 +1,4 @@
-import Post from '../db/models/Post';
+import Post from '../db/models/PostModel';
 
 class PostQueries {
   static getPostQuery = async (_, { _id }) => {
